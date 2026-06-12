@@ -36,15 +36,15 @@ jobs:
         restore-keys: ${{ runner.os }}-gradle
     
     - name: Make gradlew executable
-      run: chmod +x ./gradlew
+      run: chmod +x ./app/gradlew
     
     - name: Checkstyle
-      run: ./gradlew checkstyleMain checkstyleTest
+      run: ./app/gradlew checkstyleMain checkstyleTest
       
     - name: Run tests with coverage
-      run: ./gradlew test jacocoTestReport
+      run: ./app/gradlew test jacocoTestReport
       
     - name: Build and analyze with SonarQube
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: ./gradlew build sonar --info
+      run: ./app/gradlew build sonar --info
