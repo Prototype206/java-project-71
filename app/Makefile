@@ -1,6 +1,9 @@
 .PHONY: build run-dist clean checkstyle test
 
-build:
+setup:
+	chmod +x ./gradlew
+
+build: setup
 	./gradlew build
 
 run-dist:
