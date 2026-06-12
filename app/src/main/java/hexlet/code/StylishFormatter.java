@@ -7,6 +7,10 @@ public class StylishFormatter {
 
     private static final int INDENT_SIZE = 4;
 
+    private StylishFormatter() {
+        throw new UnsupportedOperationException("Utility class");
+    }
+
     public static String format(List<DiffNode> diff) {
         StringBuilder result = new StringBuilder();
         result.append("{\n");
@@ -20,52 +24,26 @@ public class StylishFormatter {
     }
 
     private static String formatNode(DiffNode node) {
-        StringBuilder sb = new StringBuilder();
+        String spaces = " ".repeat(INDENT_SIZE);
+        String signSpaces = " ".repeat(INDENT_SIZE - 2);
 
         switch (node.getStatus()) {
             case UNCHANGED:
-                sb.append(" ".repeat(INDENT_SIZE))
-                  .append(node.getKey())
-                  .append(": ")
-                  .append(formatValue(node.getNewValue()))
-                  .append("\n");
-                break;
+                return spaces + node.getKey() + ": " + formatValue(node.getNewValue()) + "\n";
 
             case ADDED:
-                sb.append(" ".repeat(INDENT_SIZE - 2))
-                  .append("+ ")
-                  .append(node.getKey())
-                  .append(": ")
-                  .append(formatValue(node.getNewValue()))
-                  .append("\n");
-                break;
+                return signSpaces + "+ " + node.getKey() + ": " + formatValue(node.getNewValue()) + "\n";
 
             case REMOVED:
-                sb.append(" ".repeat(INDENT_SIZE - 2))
-                  .append("- ")
-                  .append(node.getKey())
-                  .append(": ")
-                  .append(formatValue(node.getOldValue()))
-                  .append("\n");
-                break;
+                return signSpaces + "- " + node.getKey() + ": " + formatValue(node.getOldValue()) + "\n";
 
             case CHANGED:
-                sb.append(" ".repeat(INDENT_SIZE - 2))
-                  .append("- ")
-                  .append(node.getKey())
-                  .append(": ")
-                  .append(formatValue(node.getOldValue()))
-                  .append("\n");
-                sb.append(" ".repeat(INDENT_SIZE - 2))
-                  .append("+ ")
-                  .append(node.getKey())
-                  .append(": ")
-                  .append(formatValue(node.getNewValue()))
-                  .append("\n");
-                break;
-        }
+                return signSpaces + "- " + node.getKey() + ": " + formatValue(node.getOldValue()) + "\n"
+                     + signSpaces + "+ " + node.getKey() + ": " + formatValue(node.getNewValue()) + "\n";
 
-        return sb.toString();
+            default:
+                return "";
+        }
     }
 
     private static String formatValue(Object value) {
