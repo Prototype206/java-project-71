@@ -57,5 +57,9 @@ checkstyle {
 
 tasks.named<Test>("test") {
     useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
+    systemProperty("junit.jupiter.testinstance.lifecycle.default", "per_class")
 }
 
