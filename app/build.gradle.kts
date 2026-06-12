@@ -19,7 +19,11 @@ dependencies {
     annotationProcessor("info.picocli:picocli-codegen:4.7.7")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.20.1")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:6.1.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+    
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.0")
+    
     testImplementation("org.assertj:assertj-core:3.27.7")
 }
 
@@ -55,11 +59,10 @@ checkstyle {
     configFile = file("${projectDir}/config/checkstyle/checkstyle.xml")
 }
 
-tasks.named<Test>("test") {
+tasks.test {
     useJUnitPlatform()
     testLogging {
         events("passed", "skipped", "failed")
     }
-    systemProperty("junit.jupiter.testinstance.lifecycle.default", "per_class")
 }
 

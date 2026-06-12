@@ -18,14 +18,14 @@ class DifferTest {
     static void setUp() {
         file1Path = getFixturePath("file1.json");
         file2Path = getFixturePath("file2.json");
-        expectedResult = readFixture("expected.txt");
+        expectedResult = normalizeLineEndings(readFixture("expected.txt"));
     }
 
     @Test
     void testGenerate() throws Exception {
-        String actual = Differ.generate(file1Path, file2Path);
+        String actual = normalizeLineEndings(Differ.generate(file1Path, file2Path));
         assertNotNull(actual);
-        assertEquals(expectedResult.trim(), actual.trim());
+        assertEquals(expectedResult, actual);
     }
 
     @Test
@@ -45,5 +45,9 @@ class DifferTest {
         } catch (Exception e) {
             throw new RuntimeException("Failed to read fixture: " + fileName, e);
         }
+    }
+
+    private static String normalizeLineEndings(String str) {
+        return str.replace("\r\n", "\n").replace("\r", "\n");
     }
 }
