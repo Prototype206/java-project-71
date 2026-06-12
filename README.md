@@ -6,10 +6,17 @@
 
 Compares two configuration files and shows a difference.
 
-![Сравнение двух json файлов на различия](images/diff_6.png)
+### Сравнение JSON файлов (формат stylish)
+![Сравнение двух JSON файлов](images/diff_6.png)
 
-![Сравнение двух yml файлов на различия](images/diff_8.png)
+### Сравнение YAML файлов (формат stylish)
+![Сравнение двух YAML файлов](images/diff_8.png)
 
+### Сравнение вложенных структур (формат stylish)
 ![Сравнение вложенных структур](images/diff_9.png)
 
-![Вывод разницы в текстовом формате](images/diff_10.png)
+### Вывод в формате plain
+![Вывод разницы в текстовом формате plain](images/diff_10.png)
+
+### Вывод в JSON
+![Вывод в JSON](images/diff_11.png)

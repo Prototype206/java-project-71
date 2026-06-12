@@ -19,7 +19,7 @@ public class App implements Runnable {
     private String filepath2;
 
     @Option(names = {"-f", "--format"},
-            description = "output format (stylish, plain) [default: stylish]")
+            description = "output format (stylish, plain, json) [default: stylish]")
     private String format = "stylish";
 
     @Override
