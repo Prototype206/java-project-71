@@ -11,6 +11,7 @@ public class Parser {
     private static final ObjectMapper jsonMapper = new ObjectMapper();
     private static final ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
 
+    @SuppressWarnings("unchecked")
     public static Map<String, Object> parse(String filepath) throws Exception {
         String content = Files.readString(Path.of(filepath));
         String extension = getExtension(filepath);

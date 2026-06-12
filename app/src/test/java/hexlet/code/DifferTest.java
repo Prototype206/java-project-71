@@ -58,6 +58,21 @@ class DifferTest {
         assertEquals(normalizeLineEndings(expected), normalizeLineEndings(actual));
     }
 
+    @Test
+    void testGenerateWithNestedStructures() throws Exception {
+        String file1Nested = getFixturePath("file1-nested.json");
+        String file2Nested = getFixturePath("file2-nested.json");
+        String expected = readFixture("expected-nested.txt");
+
+        if (expected == null) {
+            throw new RuntimeException("expected-nested.txt not found or could not be read");
+        }
+
+        String actual = Differ.generate(file1Nested, file2Nested);
+
+        assertEquals(normalizeLineEndings(expected), normalizeLineEndings(actual));
+    }
+
     private static String normalizeLineEndings(String str) {
         return str.replace("\r\n", "\n").replace("\r", "\n");
     }
