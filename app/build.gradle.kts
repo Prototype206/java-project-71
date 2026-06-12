@@ -37,6 +37,11 @@ tasks.jacocoTestReport {
         xml.required.set(true)
         html.required.set(true)
     }
+    classDirectories.setFrom(files(classDirectories.files.map {
+        fileTree(it).matching {
+            exclude("hexlet/code/App.class")
+        }
+    }))
 }
 
 application {
@@ -65,4 +70,3 @@ tasks.test {
         events("passed", "skipped", "failed")
     }
 }
-
