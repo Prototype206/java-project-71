@@ -9,7 +9,7 @@ import picocli.CommandLine.Parameters;
         name = "gendiff",
         mixinStandardHelpOptions = true,
         version = "gendiff 1.0.0",
-        description = "Compares two configuration files and shows a difference.")
+        description = "Compares two configuration files (JSON or YAML) and shows a difference.")
 public class App implements Runnable{
 
     @Parameters(index="0", description = "path to first file")

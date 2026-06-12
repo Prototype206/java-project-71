@@ -47,6 +47,17 @@ class DifferTest {
         }
     }
 
+    @Test
+    void testGenerateYaml() throws Exception {
+        String file1Yml = getFixturePath("file1.yml");
+        String file2Yml = getFixturePath("file2.yml");
+        String expected = readFixture("expected.yml");
+
+        String actual = Differ.generate(file1Yml, file2Yml);
+
+        assertEquals(normalizeLineEndings(expected), normalizeLineEndings(actual));
+    }
+
     private static String normalizeLineEndings(String str) {
         return str.replace("\r\n", "\n").replace("\r", "\n");
     }

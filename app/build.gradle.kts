@@ -25,6 +25,8 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.0")
     
     testImplementation("org.assertj:assertj-core:3.27.7")
+    
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.20.1")
 }
 
 jacoco {

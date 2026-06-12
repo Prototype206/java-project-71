@@ -1,8 +1,5 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -11,19 +8,11 @@ import java.util.List;
 
 public class Differ {
 
-    private static final ObjectMapper mapper = new ObjectMapper();
-
     public static String generate(String filepath1, String filepath2) throws Exception {
-        Map<String, Object> data1 = readFile(filepath1);
-        Map<String, Object> data2 = readFile(filepath2);
+        Map<String, Object> data1 = Parser.parse(filepath1);
+        Map<String, Object> data2 = Parser.parse(filepath2);
 
         return generateStylish(data1, data2);
-    }
-
-    private static Map<String, Object> readFile(String filepath) throws Exception {
-        Path path = Path.of(filepath);
-        String content = Files.readString(path);
-        return mapper.readValue(content, Map.class);
     }
 
     private static String generateStylish(Map<String, Object> data1, Map<String, Object> data2) {
