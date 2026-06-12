@@ -3,6 +3,8 @@ package hexlet.code;
 import java.util.List;
 import java.util.Map;
 
+import hexlet.code.formatters.Formatter;
+
 public class Differ {
 
     public static String generate(String filepath1, String filepath2) throws Exception {
@@ -15,6 +17,6 @@ public class Differ {
 
         List<DiffNode> diff = DifferBuilder.buildDiff(data1, data2);
 
-        return StylishFormatter.format(diff);
+        return Formatter.format(diff, format);
     }
 }

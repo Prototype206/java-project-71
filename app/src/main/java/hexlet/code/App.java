@@ -5,7 +5,8 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-@Command(name = "gendiff",
+@Command(
+         name = "gendiff",
          mixinStandardHelpOptions = true,
          version = "gendiff 1.0.0",
          description = "Compares two configuration files (JSON or YAML) and shows a difference.")
@@ -18,7 +19,7 @@ public class App implements Runnable {
     private String filepath2;
 
     @Option(names = {"-f", "--format"},
-            description = "output format [default: stylish]")
+            description = "output format (stylish, plain) [default: stylish]")
     private String format = "stylish";
 
     @Override

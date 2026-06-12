@@ -73,6 +73,17 @@ class DifferTest {
         assertEquals(normalizeLineEndings(expected), normalizeLineEndings(actual));
     }
 
+    @Test
+    void testGeneratePlain() throws Exception {
+        String file1Nested = getFixturePath("file1-nested.json");
+        String file2Nested = getFixturePath("file2-nested.json");
+        String expected = readFixture("expected-plain.txt");
+
+        String actual = Differ.generate(file1Nested, file2Nested, "plain");
+
+        assertEquals(normalizeLineEndings(expected), normalizeLineEndings(actual));
+    }
+
     private static String normalizeLineEndings(String str) {
         return str.replace("\r\n", "\n").replace("\r", "\n");
     }
