@@ -8,6 +8,10 @@ import java.util.Map;
 
 public class Parser {
 
+    private Parser() {
+        throw new UnsupportedOperationException("Utility class");
+    }
+
     private static final ObjectMapper jsonMapper = new ObjectMapper();
     private static final ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
 
