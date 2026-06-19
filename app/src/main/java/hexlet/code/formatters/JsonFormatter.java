@@ -40,7 +40,7 @@ public class JsonFormatter {
                     nodeMap.put("value", node.getNewValue());
                     break;
                 default:
-                    break;
+                    throw new IllegalStateException("Unknown status: " + node.getStatus());
             }
 
             result.add(nodeMap);

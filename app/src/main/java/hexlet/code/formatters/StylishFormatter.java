@@ -5,29 +5,29 @@ import java.util.List;
 import java.util.Map;
 
 public class StylishFormatter {
-    
+
     private static final int INDENT_SIZE = 4;
-    
+
     private StylishFormatter() {
         throw new UnsupportedOperationException("Utility class");
     }
-    
+
     public static String format(List<DiffNode> diff) {
         StringBuilder result = new StringBuilder();
         result.append("{\n");
-        
+
         for (DiffNode node : diff) {
             result.append(formatNode(node));
         }
-        
+
         result.append("}");
         return result.toString();
     }
-    
+
     private static String formatNode(DiffNode node) {
         String spaces = " ".repeat(INDENT_SIZE);
         String signSpaces = " ".repeat(INDENT_SIZE - 2);
-        
+
         switch (node.getStatus()) {
             case UNCHANGED:
                 return spaces + node.getKey() + ": " + formatValue(node.getNewValue()) + "\n";
@@ -39,10 +39,10 @@ public class StylishFormatter {
                 return signSpaces + "- " + node.getKey() + ": " + formatValue(node.getOldValue()) + "\n"
                      + signSpaces + "+ " + node.getKey() + ": " + formatValue(node.getNewValue()) + "\n";
             default:
-                return "";
+                throw new IllegalStateException("Unknown node status: " + node.getStatus());
         }
     }
-    
+
     private static String formatValue(Object value) {
         if (value == null) {
             return "null";

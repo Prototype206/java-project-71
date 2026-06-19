@@ -20,7 +20,6 @@ public class PlainFormatter {
             }
         }
 
-        // Удаляем последний перевод строки, если есть
         if (result.length() > 0 && result.charAt(result.length() - 1) == '\n') {
             result.setLength(result.length() - 1);
         }
@@ -43,10 +42,10 @@ public class PlainFormatter {
                      + " to " + formatValue(node.getNewValue());
 
             case UNCHANGED:
-                return null; // не выводим неизменённые свойства
+                return null;
 
             default:
-                return null;
+                throw new IllegalStateException("Unknown node status: " + node.getStatus());
         }
     }
 
