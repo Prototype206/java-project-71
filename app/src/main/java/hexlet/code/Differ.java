@@ -19,8 +19,10 @@ public class Differ {
 
         String format1 = getExtension(filepath1);
         String format2 = getExtension(filepath2);
+
         Map<String, Object> data1 = Parser.parse(content1, format1);
         Map<String, Object> data2 = Parser.parse(content2, format2);
+
         List<DiffNode> diff = DifferBuilder.buildDiff(data1, data2);
 
         return Formatter.format(diff, format);

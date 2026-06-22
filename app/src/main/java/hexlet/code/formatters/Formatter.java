@@ -10,10 +10,6 @@ public class Formatter {
     }
 
     public static String format(List<DiffNode> diff, String format) throws Exception {
-        if (format == null || format.isEmpty() || "default".equals(format)) {
-            format = "stylish";
-        }
-
         return switch (format) {
             case "stylish" -> StylishFormatter.format(diff);
             case "plain" -> PlainFormatter.format(diff);

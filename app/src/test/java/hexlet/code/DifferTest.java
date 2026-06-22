@@ -33,7 +33,7 @@ class DifferTest {
 
         expectedStylish = normalizeLineEndings(readFixture("expected-nested.txt"));
         expectedPlain = normalizeLineEndings(readFixture("expected-plain.txt"));
-        expectedJson = normalizeLineEndings(readFixture("expected-json.json"));
+        expectedJson = readFixture("expected-json.json");  // ← НЕ нормализуем
     }
 
     @Test
@@ -107,9 +107,12 @@ class DifferTest {
 
     private static void assertJsonEquals(String expected, String actual) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
+        // Нормализуем только для парсинга JSON
+        String normalizedExpected = normalizeLineEndings(expected);
+        String normalizedActual = normalizeLineEndings(actual);
         assertEquals(
-            mapper.readTree(normalizeLineEndings(expected)),
-            mapper.readTree(normalizeLineEndings(actual))
+            mapper.readTree(normalizedExpected),
+            mapper.readTree(normalizedActual)
         );
     }
 }

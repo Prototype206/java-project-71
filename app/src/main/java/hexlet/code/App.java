@@ -19,13 +19,15 @@ public class App implements Runnable {
     private String filepath2;
 
     @Option(names = {"-f", "--format"},
-            description = "output format (stylish, plain, json) [default: stylish]")
-    private String format = "stylish";
+            defaultValue = "stylish",
+            paramLabel = "format",
+            description = "output format [default: ${DEFAULT-VALUE}]")
+    private String formatName;
 
     @Override
     public void run() {
         try {
-            String result = Differ.generate(filepath1, filepath2, format);
+            String result = Differ.generate(filepath1, filepath2, formatName);
             System.out.println(result);
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());

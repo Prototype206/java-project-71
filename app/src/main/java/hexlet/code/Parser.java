@@ -15,14 +15,10 @@ public class Parser {
 
     @SuppressWarnings("unchecked")
     public static Map<String, Object> parse(String content, String format) throws Exception {
-        try {
-            return switch (format.toLowerCase()) {
-                case "json" -> jsonMapper.readValue(content, Map.class);
-                case "yml", "yaml" -> yamlMapper.readValue(content, Map.class);
-                default -> throw new IllegalArgumentException("Unsupported format: " + format);
-            };
-        } catch (Exception e) {
-            throw new Exception("Failed to parse content", e);
-        }
+        return switch (format.toLowerCase()) {
+            case "json" -> jsonMapper.readValue(content, Map.class);
+            case "yml", "yaml" -> yamlMapper.readValue(content, Map.class);
+            default -> throw new IllegalArgumentException("Unsupported format: " + format);
+        };
     }
 }
