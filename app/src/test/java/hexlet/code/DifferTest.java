@@ -18,9 +18,13 @@ class DifferTest {
     private static String file2YmlPath;
     private static String file1NestedPath;
     private static String file2NestedPath;
-    private static String expectedStylish;
-    private static String expectedPlain;
-    private static String expectedJson;
+
+    private static String expectedStylishFlat;
+    private static String expectedPlainFlat;
+    private static String expectedJsonFlat;
+    private static String expectedStylishNested;
+    private static String expectedPlainNested;
+    private static String expectedJsonNested;
 
     @BeforeAll
     static void setUp() throws Exception {
@@ -31,62 +35,61 @@ class DifferTest {
         file1NestedPath = getFixturePath("file1-nested.json");
         file2NestedPath = getFixturePath("file2-nested.json");
 
-        expectedStylish = normalizeLineEndings(readFixture("expected-nested.txt"));
-        expectedPlain = normalizeLineEndings(readFixture("expected-plain.txt"));
-        expectedJson = readFixture("expected-json.json");  // ← НЕ нормализуем
+        expectedStylishFlat = normalizeLineEndings(readFixture("expected-flat-stylish.txt"));
+        expectedPlainFlat = normalizeLineEndings(readFixture("expected-flat-plain.txt"));
+        expectedJsonFlat = readFixture("expected-flat-json.json");
+
+        expectedStylishNested = normalizeLineEndings(readFixture("expected-nested-stylish.txt"));
+        expectedPlainNested = normalizeLineEndings(readFixture("expected-nested-plain.txt"));
+        expectedJsonNested = readFixture("expected-nested-json.json");
     }
 
     @Test
     void testJsonToStylish() throws Exception {
         String actual = Differ.generate(file1NestedPath, file2NestedPath, "stylish");
-        assertEquals(expectedStylish, normalizeLineEndings(actual));
+        assertEquals(expectedStylishNested, actual);
     }
 
     @Test
     void testJsonToPlain() throws Exception {
         String actual = Differ.generate(file1NestedPath, file2NestedPath, "plain");
-        assertEquals(expectedPlain, normalizeLineEndings(actual));
+        assertEquals(expectedPlainNested, actual);
     }
 
     @Test
     void testJsonToJson() throws Exception {
         String actual = Differ.generate(file1NestedPath, file2NestedPath, "json");
-        assertJsonEquals(expectedJson, actual);
+        assertJsonEquals(expectedJsonNested, actual);
     }
 
     @Test
     void testJsonToDefault() throws Exception {
-        String actualDefault = Differ.generate(file1NestedPath, file2NestedPath);
-        String actualStylish = Differ.generate(file1NestedPath, file2NestedPath, "stylish");
-        assertEquals(normalizeLineEndings(actualStylish), normalizeLineEndings(actualDefault));
+        String actual = Differ.generate(file1NestedPath, file2NestedPath);
+        assertEquals(expectedStylishNested, actual);
     }
 
     @Test
     void testYmlToStylish() throws Exception {
         String actual = Differ.generate(file1YmlPath, file2YmlPath, "stylish");
-        String expected = Differ.generate(file1JsonPath, file2JsonPath, "stylish");
-        assertEquals(normalizeLineEndings(expected), normalizeLineEndings(actual));
+        assertEquals(expectedStylishFlat, actual);
     }
 
     @Test
     void testYmlToPlain() throws Exception {
         String actual = Differ.generate(file1YmlPath, file2YmlPath, "plain");
-        String expected = Differ.generate(file1JsonPath, file2JsonPath, "plain");
-        assertEquals(normalizeLineEndings(expected), normalizeLineEndings(actual));
+        assertEquals(expectedPlainFlat, actual);
     }
 
     @Test
     void testYmlToJson() throws Exception {
         String actual = Differ.generate(file1YmlPath, file2YmlPath, "json");
-        String expected = Differ.generate(file1JsonPath, file2JsonPath, "json");
-        assertJsonEquals(expected, actual);
+        assertJsonEquals(expectedJsonFlat, actual);
     }
 
     @Test
     void testYmlToDefault() throws Exception {
-        String actualDefault = Differ.generate(file1YmlPath, file2YmlPath);
-        String actualStylish = Differ.generate(file1YmlPath, file2YmlPath, "stylish");
-        assertEquals(normalizeLineEndings(actualStylish), normalizeLineEndings(actualDefault));
+        String actual = Differ.generate(file1YmlPath, file2YmlPath);
+        assertEquals(expectedStylishFlat, actual);
     }
 
     private static String getFixturePath(String fileName) {
@@ -107,7 +110,6 @@ class DifferTest {
 
     private static void assertJsonEquals(String expected, String actual) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        // Нормализуем только для парсинга JSON
         String normalizedExpected = normalizeLineEndings(expected);
         String normalizedActual = normalizeLineEndings(actual);
         assertEquals(
